@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🌍 Country Info Viewer</title>
+  
+  <style>
+     body{
+           text-align:  center;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+     }
+      button{
+                padding: 10px 15px;
+                border: none;              
+                border-radius: .3125em;
+                background-color: cyan;
+                color:#000;
+
+      }
+    .country {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 8px;
+      border-radius: 8px;
+      max-width: 300px;
+    }
+    img {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🌍 বিশ্বের কিছু দেশের তথ্য</h2>
+  <button onclick="loadCountries()">Load Countries</button><br><br>
+  <div id="countryList"></div>
+
+  <script>
+    async function loadCountries() {
+      try {
+        let res = await fetch("https://restcountries.com/v3.1/all");
+        let data = await res.json();
+
+        let countryDiv = document.getElementById("countryList");
+        countryDiv.innerHTML = ""; // আগেরগুলো মুছে ফেলো
+
+        data.slice(0, 10).forEach(country => {
+          let name = country.name.common;
+          let capital = country.capital ? country.capital[0] : "No capital";
+          let flag = country.flags.svg;
+
+          let html = `
+            <div class="country">
+              <h3>📛 ${name}</h3>
+              <p>🏙️ Capital: ${capital}</p>
+              <img src="${flag}" alt="${name} flag">
+            </div>
+          `;
+
+          countryDiv.innerHTML += html;
+        });
+      } catch (err) {
+        document.getElementById("countryList").innerText = "ডেটা আনতে সমস্যা হয়েছে!";
+        console.log(err);
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+     <h3>😒 Random Mouse Event Api</h3>
+       <button onclick="fetchUser()">Mouse Event</button>
+         <p><strong>Name:</strong><span id="nameResult">---</span></p>
+         <p><strong>Country:</strong><span id="country">---</span></p>
+         <p id="mouseEventBox"></p>
+    
+     <script>
+
+         async function fetchUser() {
+             try {
+                  let res = await fetch("https://randomuser.me/api/");
+                 let data = await res.json();
+                
+
+                  let name =  document.getElementById('nameResult').innerText = data.results[0].name.first + " " + data.results[0].name.last;
+                  let country = document.getElementById('country').innerText = data .results[0].location.country;
+                   console.log(data); 
+                  document.getElementById('mouseEventBox').innerText = "Mouse Event Triggered: " +"Country :" + country;
+               
+             } catch (error) {
+                document.getElementById('mouseEventBox').innerText = "Error fetching data: " + error.message;
+                console.error("Error fetching data:", error);
+             }
+
+}
+
+     </script>
+</body>
+</html>

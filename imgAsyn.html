@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>🐶 র‍্যান্ডম কুকুরের ছবি দেখো !</title>
+     <style>
+         body{
+             font-family: Arial, Helvetica, sans-serif;
+             text-align: center;
+                background-color: #f0f0f0;
+         }
+          button{
+             padding:  10px 14px;
+               border: 1px solid #ccc;
+                border-radius: 5px;
+                 color: #ffffff;
+                 background: #2c6687;
+          }
+     </style>
+</head>
+<body>
+     <h3>🐶 র‍্যান্ডম কুকুরের ছবি দেখো...</h3>
+      <button onclick="getDog()">Load Dog</button><br><br>
+     <img id="imgDog" src="" alt="🐶Dog will appear here" width="300px" ">
+
+      <script>
+            async  function  getDog(){
+                 try {
+                     let res = await  fetch("https://dog.ceo/api/breeds/image/random");
+                       let data = await res.json();
+                        console.log(data);
+                          document.getElementById('imgDog').src = data.message;   
+                    
+                 } catch (error) {
+                    alert('কুকুরের ছবি লোড করতে সমস্যা হয়েছে: ' + error.message);   
+                 }
+            }
+
+      </script>
+</body>
+</html>
